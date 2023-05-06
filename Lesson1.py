@@ -10,11 +10,9 @@ class Student:
 
     def to_work(self):
         print("I want more money")
-        self.gladness -= 0.05
         self.progress -= 0.05
+        self.gladness -= 0.05
         self.money += 150
-
-
 
 
     def to_study(self):
