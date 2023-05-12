@@ -2,7 +2,7 @@ import logging
 import random
 
 class Human:
-    def __init__(self, name="Human", job=None, home=None, car=None):
+    def __init__(self, name="Human", job=None, home=None, car=None, pet=None):
         self.name = name
         self.money = 100
         self.gladness = 50
@@ -10,6 +10,10 @@ class Human:
         self.job = job
         self.car = car
         self.home = home
+        self.pet = pet
+
+    def get_pet(self):
+        self.pet = Pet(pet_animal)
 
     def get_home(self):
         self.home = House()
@@ -93,6 +97,7 @@ class Human:
         print(f"Satiety – {self.satiety}")
         print(f"Gladness – {self.gladness}")
         home_indexes = "Home indexes"
+        print(f"Pet - {self.pet}")
         print(f"{home_indexes:^50}", "\n")
         print(f"Food – {self.home.food}")
         print(f"Mess – {self.home.mess}")
@@ -112,6 +117,7 @@ class Human:
             print("Bankrupt…")
             return False
 
+
     def live(self, day):
         if self.is_alive() == False:
             return False
@@ -125,6 +131,12 @@ class Human:
             self.get_job()
             print(f"I don't have a job, I'm going to get a job "
                   f"{self.job.job} with salary {self.job.salary}")
+        if self.pet is None:
+            self.get_pet()
+            print(f"I don't have a pet, I'm going to get a pet"
+                  f"{self.pet} with list {self.pet_animal}")
+
+
         self.days_indexes(day)
         dice = random.randint(1, 4)
         if self.satiety < 20:
@@ -141,6 +153,9 @@ class Human:
         elif self.money < 0:
             print("Start working")
             self.work()
+        elif self.pet.eat < 5:
+            print("I need feed the animal")
+
         elif self.car.strength < 15:
             print("I need to repair my car")
             self.to_repair()
@@ -156,6 +171,19 @@ class Human:
         elif dice == 4:
             print("Time for treats!")
             self.shopping(manage="delicacies")
+
+pet_animal = {
+    "Dog":{"eat":100, "size":5, "friendliness":20},
+    "Cat":{"eat":50, "size":2, "friendliness": 50},
+    "Parrot":{"eat": 70, "size":0.5, "friendliness": 40} }
+
+
+class Pet:
+    def __init__(self, pet_animal):
+        self.pet=random.choice(list (pet_animal))
+        self.eat=pet_animal[self.pet]["eat"]
+        self.size = pet_animal[self.pet]["size"]
+        self.friendliness = pet_animal[self.pet]["friendliness"]
 
 brands_of_car = {
     "BMW":{"fuel":100, "strength":100, "consumption": 6},
