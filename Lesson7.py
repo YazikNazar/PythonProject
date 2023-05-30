@@ -23,35 +23,13 @@
 # print(bitcoin_exchange_rate)
 
 
-# from bs4 import BeautifulSoup
-# import requests
-# respones = requests.get("https://coinmarketcap.com/")
-#
-# if respones.status_code == 200:
-#     soup = BeautifulSoup(respones.text, features="html.parser")
-#     soup_list = soup.find_all("a",{"href": "/currencies/bitcoin/markets/"})
-#     res = soup_list[0].find("span")
-#     print(res.text)
-
-import sys
-import requests
-from pprint import pprint
 from bs4 import BeautifulSoup
-
+import requests
 respones = requests.get("https://www.oschadbank.ua/currency-rate")
 
 if respones.status_code == 200:
-     if __name__ == "__main__":
-          source_currency = sys.argv[1]
-          amount = float(sys.argv[3])
-          target_currency = "GBP"
-          print("Last updated:", price_datetime)
-          pprint(exchange_rates)
-
-
      soup = BeautifulSoup(respones.text, features="html.parser")
-     soup_list = soup.find_all("div", class_="preloader preloader_hidden")
-     res = soup_list[0].find("td")
+     soup_list = soup.find_all("div", class_="heading-block-currency-rate__table-txt body-regular")
+     res = soup_list.find("td")
      print(res.text)
-     python currency_converter_oschadbank.py EUR 1
 
